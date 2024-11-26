@@ -1,0 +1,49 @@
+{
+  "hash": "c492d4a4",
+  "configHash": "b545412a",
+  "lockfileHash": "e3b0c442",
+  "browserHash": "dce5941f",
+  "optimized": {
+    "crypto-js": {
+      "src": "../../node_modules/crypto-js/index.js",
+      "file": "crypto-js.js",
+      "fileHash": "75ff9ce7",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "09c1a815",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "f25e256c",
+      "needsInterop": true
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "ad755ddb",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "e820dbbc",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-6UQLG4H2": {
+      "file": "chunk-6UQLG4H2.js"
+    },
+    "chunk-TXI3HGC7": {
+      "file": "chunk-TXI3HGC7.js"
+    },
+    "chunk-7D4SUZUM": {
+      "file": "chunk-7D4SUZUM.js"
+    }
+  }
+}
