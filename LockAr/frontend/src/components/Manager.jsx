@@ -17,6 +17,8 @@ const INIT_STATE = {
 };
 
 const Manager = (props) => {
+  const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
+
   const toggleLogin = props.toggleLogin;
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -32,6 +34,7 @@ const Manager = (props) => {
   useEffect(() => {
     const response = async () => {
       try {
+        console.log(token)
         const data = await fetch("http://localhost:3000/api/auth/status", {
           method: "GET",
           headers: { "Content-Type": "application/json", token: token },
@@ -139,6 +142,7 @@ const Manager = (props) => {
 
   const deleteEntry = async (id) => {
     try {
+  
       const response = await fetch(
         `http://localhost:3000/api/passwords/delete/${id}`,
         {
@@ -236,14 +240,27 @@ const Manager = (props) => {
         <ModalBody>
           <input
             value={masterPassword}
-            onChange={(e) => setMasterPassword(e.target.value)}
+            onChange={(e) => {
+              setMasterPassword(e.target.value);
+            }}
             placeholder="Master Password"
             type="password"
             className="p-2 border border-gray-400 rounded w-100"
           />
           <div className="flex justify-end gap-4 mt-4">
             <button
-              onClick={handleMasterPasswordSubmit}
+              onClick={() => {
+
+                if (masterPassword.length < 8) {
+                  alert("Password length should be atleast 8");
+                  return;
+                }
+                if (!regex.test(masterPassword)) {
+                  alert("Password must contain both alphabets and numbers");
+                  return;
+                }
+                handleMasterPasswordSubmit();
+              }}
               className="px-4 py-2 bg-blue-500 text-white rounded"
             >
               Submit
@@ -304,17 +321,17 @@ const Manager = (props) => {
             </thead>
             <tbody>
               {/* {console.log(passwordArray, "lklklk")} */}
-              {passwordArray?.map((item,index) => (
+              {passwordArray?.map((item, index) => (
                 <tr key={index} className="bg-white">
-                  <td className="px-4 py-2">{item.site}</td>
-                  <td className="px-4 py-2">{item.username}</td>
+                  <td className="px-4 py-2">{item?.site}</td>
+                  <td className="px-4 py-2">{item?.username}</td>
                   <td className="px-4 py-2">
-                    {item.decryptedPassword || (
+                    {item?.decryptedPassword || (
                       <button
                         onClick={() => viewRealPswrd(item)}
                         className="text-blue-500 underline"
                       >
-                        {item.encryptedPassword}
+                        {item?.encryptedPassword}
                       </button>
                     )}
                   </td>

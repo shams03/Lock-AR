@@ -1,21 +1,21 @@
-import crypto from 'crypto-browserify';
-import { Buffer } from 'buffer';
+import crypto from "crypto-browserify";
+import { Buffer } from "buffer";
 // Function to derive key from master password
 export const deriveKey = (password, salt) => {
-  const key = crypto.pbkdf2Sync(password, salt, 100000, 32, 'sha256');
+  const key = crypto.pbkdf2Sync(password, salt, 100000, 32, "sha256");
   return key;
 };
 
 // Function to encrypt data
 export const encryptPassword = (password, masterPassword) => {
-  const salt = crypto.randomBytes(16).toString('hex'); // Generate random salt
+  const salt = crypto.randomBytes(16).toString("hex"); // Generate random salt
   const key = deriveKey(masterPassword, salt); // Derive key
-  // console.log(key,"dusring encrypt",masterPassword)
+  //console.log(key, "dusring encrypt", key.length);
   const iv = crypto.randomBytes(16); // Generate IV
-  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-  let encrypted = cipher.update(password, 'utf8', 'hex');
-  encrypted += cipher.final('hex');
-  return { encryptedPassword: encrypted, iv: iv.toString('hex'), salt };
+  const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+  let encrypted = cipher.update(password, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  return { encryptedPassword: encrypted, iv: iv.toString("hex"), salt };
 };
 
 // Function to decrypt data
@@ -27,7 +27,7 @@ export const encryptPassword = (password, masterPassword) => {
 //   } catch (error) {
 //     console.error('Error creating buffer:', error);
 //   }
-  
+
 //   const key = deriveKey(masterPassword, Buffer.from(salt, 'hex')); // Derive key
 //   console.log(key,"firsst")
 //   const decipher = crypto.createDecipheriv('aes-256-cbc', key, Buffer.from(iv, 'hex'));
@@ -47,10 +47,10 @@ export const decryptPassword = (encryptedData, masterPassword, iv, salt) => {
     // console.log("Salt:", salt);
 
     // Convert Salt and IV to Buffers
-    const bufferSalt = Buffer.from(salt, 'hex');
-    const bufferIV = Buffer.from(iv, 'hex');
+    const bufferSalt = Buffer.from(salt, "hex");
+    const bufferIV = Buffer.from(iv, "hex");
 
-    // console.log("Buffer Salt:", bufferSalt); // no use in encryption it is a string so pass it as it is 
+    // console.log("Buffer Salt:", bufferSalt); // no use in encryption it is a string so pass it as it is
     // console.log("Buffer IV:", bufferIV);
 
     // Ensure Key and IV lengths are correct
@@ -59,11 +59,11 @@ export const decryptPassword = (encryptedData, masterPassword, iv, salt) => {
     // console.log("IV Length:", bufferIV.length); // Should be 16
 
     // Initialize Decipher
-    const decipher = crypto.createDecipheriv('aes-256-cbc', key, bufferIV);
+    const decipher = crypto.createDecipheriv("aes-256-cbc", key, bufferIV);
 
     // Decrypt the data
-    let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
+    let decrypted = decipher.update(encryptedData, "hex", "utf8");
+    decrypted += decipher.final("utf8");
     // console.log("Decrypted Data:", decrypted);
 
     return decrypted;
@@ -72,4 +72,3 @@ export const decryptPassword = (encryptedData, masterPassword, iv, salt) => {
     return null; // Handle error appropriately
   }
 };
-

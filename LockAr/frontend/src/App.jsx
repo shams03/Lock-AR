@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Manager from "./components/Manager";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Fotter";
+import Footer from "./components/Footer";
 import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
@@ -16,9 +16,9 @@ function App() {
   };
 
   return (
-    <>
+    <div className={" h-full w-full"}>
       <Navbar isLoggedIn={isLoggedIn} toggleLogin={toggleLogin} />
-      <div className="min-h-[80vh]">
+      <div className="relative min-h-[80vh]">
         <Routes>
           <Route path="/" element={<Home toggleLogin={toggleLogin} />} />
           <Route path="/login" element={<Login toggleLogin={toggleLogin} />} />
@@ -37,7 +37,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

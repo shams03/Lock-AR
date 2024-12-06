@@ -33,9 +33,9 @@ const Navbar = ({ isLoggedIn, toggleLogin }) => {
   };
 
   return (
-    <nav className="bg-purple-900 text-white ">
+    <nav className="bg-blue-950 text-white ">
       <div className="mycontainer flex justify-between items-center px-4 py-5 h-14">
-        <img src="/logo2.png" width={100} />
+        <img src="/logo2.png" width={100} className="cursor-pointer" onClick={()=>navigate("/")}/>
         <ul className="flex gap-4">
           <li>
             <Link to="/" className="hover:font-bold">

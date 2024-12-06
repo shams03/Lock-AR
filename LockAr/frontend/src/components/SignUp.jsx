@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import  { useRef, useState,useEffect } from "react";
 import {  useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,7 +15,7 @@ const SignUp = (props) => {
   useEffect(()=>{
    toggleLogin(false);
     },[])
-
+  const regex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
   const [showPass, setShowPass] = useState(false);
   const [showCnfPass, setShowCnfPass] = useState(false);
   const [error, setError] = useState("");
@@ -28,7 +29,19 @@ const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
+    if(form?.username.length <= 5){
+      setError("Username length should be atleast 6");
+      return;
+    }
+    if(form?.password.length<8){
+      setError("Password length should be atleast 8");
+      return;
+    }
+    if(!regex.test(form?.password)){
+      setError("Password must contain both alphabets and numbers")
+      return;
+    }
+    if (form?.password !== form?.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
@@ -56,7 +69,7 @@ const SignUp = (props) => {
   return (
     <>
       <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
-      <div className="absolute inset-0 -z-10 h-full w-full bg-green-200 opacity-50"></div>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-purple-200 opacity-50"></div>
       <div className="relative flex justify-center items-center min-h-screen">
         <form
           onSubmit={handleSubmit}
